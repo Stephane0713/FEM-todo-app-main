@@ -1,0 +1,27 @@
+@use "./variables" as *;
+
+@mixin elt-borders() {
+    --stroke: 2px;
+    border: none;
+    border-top: var(--stroke) solid red;
+    border-bottom: var(--stroke) solid blue;
+}
+
+.todo-app {
+    --elt-padding: 1rem;
+
+    border-radius: 3px;
+    overflow: hidden;
+
+    &__input {
+        width: 100%;
+        padding: var(--elt-padding);
+        @include elt-borders();
+    }
+
+    &__item {
+        width: 100%;
+        padding: var(--elt-padding);
+        @include elt-borders();
+    }
+}

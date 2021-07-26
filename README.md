@@ -4,9 +4,9 @@
 
 ## Hi !
 
-This a [Frontend Mentor](https://www.frontendmentor.io/) project.
+This is a [Frontend Mentor](https://www.frontendmentor.io/) project.
 The mockups and images are provided by [Frontend Mentor](https://www.frontendmentor.io/).
-I will be developing the Frontedn of this project meaning (at least for now).
+I will be developing the Frontend of this project meaning (at least for now).
 
 ## Here is the job i have to do :
 
@@ -20,8 +20,9 @@ I will be developing the Frontedn of this project meaning (at least for now).
 -   [ ] Toggle light and dark mode
 -   [ ] **Bonus**: Drag and drop to reorder items on the list
 
-## The tech I aim to use :
+## The techs I aim to use :
 
 -   HTML/CSS/JS (of course)
+-   SCSS
 -   TypeScript
 -   Parcel

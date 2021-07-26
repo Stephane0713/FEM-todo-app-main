@@ -15,7 +15,7 @@
         <title>Frontend Mentor | Todo app</title>
 
         <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-        <style>
+        <!-- <style>
             .attribution {
                 font-size: 11px;
                 text-align: center;
@@ -23,23 +23,55 @@
             .attribution a {
                 color: hsl(228, 45%, 44%);
             }
-        </style>
+        </style> -->
     </head>
     <body>
-        Todo
+        <header class="header">
+            <div class="container">
+                <h1 class="title">Todo</h1>
+                <button class="mode" aria-hidden="true"></button>
+            </div>
+        </header>
+        <div class="todo-app container">
+            <input
+                type="text"
+                class="todo-app__input"
+                placeholder="Create a new todo..."
+            />
+            <ul class="todo-app__list">
+                <li class="todo-app__item">
+                    <input
+                        type="checkbox"
+                        id="task1"
+                        class="todo-app__checkbox"
+                    />
+                    <label for="task1" class="todo-app__label"
+                        >This is a task</label
+                    >
+                </li>
+            </ul>
+            <div class="todo-app__footer">
+                <span class="todo-app__counter">Items left</span>
+                <div class="todo-app__tabs">
+                    <span class="todo-app__tab" id="tab-all">All</span>
+                    <span class="todo-app__tab" id="tab-active">Active</span>
+                    <span class="todo-app__tab" id="tab-completed"
+                        >Completed
+                    </span>
+                </div>
+                <span class="todo-app__clear">Clear Completed</span>
+            </div>
+        </div>
+        <footer class="footer">Drag and drop to reorder list</footer>
 
-        <!-- Add dynamic number -->
-        items left All Active Completed Clear Completed Drag and drop to reorder
-        list
-
-        <div class="attribution">
+        <!-- <div class="attribution">
             Challenge by
             <a
                 href="https://www.frontendmentor.io?ref=challenge"
                 target="_blank"
                 >Frontend Mentor</a
             >. Coded by <a href="#">Your Name Here</a>.
-        </div>
+        </div> -->
         <script src="./ts/index.ts"></script>
     </body>
 </html>
