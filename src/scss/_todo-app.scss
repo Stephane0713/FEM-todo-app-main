@@ -1,27 +1,70 @@
-@use "./variables" as *;
-
-@mixin elt-borders() {
-    --stroke: 2px;
-    border: none;
-    border-top: var(--stroke) solid red;
-    border-bottom: var(--stroke) solid blue;
-}
+@use "./base" as *;
 
 .todo-app {
-    --elt-padding: 1rem;
+    --elt-height: 3rem;
+    --elt-pad-x: 1rem;
+    --elt-border-radius: 5px;
+    --spacing: 1rem;
 
-    border-radius: 3px;
-    overflow: hidden;
+    color: $clr-light;
 
     &__input {
         width: 100%;
-        padding: var(--elt-padding);
-        @include elt-borders();
+        height: var(--elt-height);
+        padding-left: var(--elt-pad-x);
+        border-radius: var(--elt-border-radius);
+        border: none;
+        background-color: $clr-dark;
+        margin-bottom: var(--spacing);
+    }
+
+    &__list {
+        min-height: calc(var(--elt-height) * 5);
+        border-radius: var(--elt-border-radius) var(--elt-border-radius) 0 0;
+        overflow: hidden;
     }
 
     &__item {
         width: 100%;
-        padding: var(--elt-padding);
-        @include elt-borders();
+        height: var(--elt-height);
+        line-height: var(--elt-height);
+        padding-left: var(--elt-pad-x);
+        border-bottom: 1px solid rgba($clr-light, 0.5);
+        background-color: $clr-dark;
+    }
+
+    &__footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        & > * {
+            flex-grow: 1;
+            padding-left: var(--elt-pad-x);
+            padding-right: var(--elt-pad-x);
+            background-color: $clr-dark;
+            height: var(--elt-height);
+            line-height: var(--elt-height);
+        }
+    }
+
+    &__tabs {
+        border-radius: var(--elt-border-radius);
+        flex-basis: 100%;
+        text-align: center;
+        margin-top: var(--spacing);
+    }
+
+    &__tab {
+        margin: 0 0.75rem;
+    }
+
+    &__counter {
+        border-radius: 0 0 0 var(--elt-border-radius);
+    }
+
+    &__clear {
+        text-align: right;
+        border-radius: 0 0 var(--elt-border-radius) 0;
     }
 }
