@@ -368,31 +368,31 @@ input {
 .todo-app {
   --elt-height: 3rem;
   --elt-pad-x: 1rem;
-  --elt-border-radius: 5px;
+  --elt-radius: 5px;
   --spacing: 1rem;
   color: #cbcde6;
 }
+.todo-app__input, .todo-app__item, .todo-app__tabs, .todo-app__clear, .todo-app__counter {
+  padding-left: var(--elt-pad-x);
+  padding-right: var(--elt-pad-x);
+  height: var(--elt-height);
+  line-height: var(--elt-height);
+  background-color: #25273c;
+}
 .todo-app__input {
   width: 100%;
-  height: var(--elt-height);
-  padding-left: var(--elt-pad-x);
-  border-radius: var(--elt-border-radius);
+  border-radius: var(--elt-radius);
   border: none;
-  background-color: #25273c;
   margin-bottom: var(--spacing);
 }
 .todo-app__list {
   min-height: calc(var(--elt-height) * 5);
-  border-radius: var(--elt-border-radius) var(--elt-border-radius) 0 0;
+  border-radius: var(--elt-radius) var(--elt-radius) 0 0;
   overflow: hidden;
 }
 .todo-app__item {
   width: 100%;
-  height: var(--elt-height);
-  line-height: var(--elt-height);
-  padding-left: var(--elt-pad-x);
   border-bottom: 1px solid rgba(203, 205, 230, 0.5);
-  background-color: #25273c;
 }
 .todo-app__footer {
   display: flex;
@@ -401,14 +401,9 @@ input {
 }
 .todo-app__footer > * {
   flex-grow: 1;
-  padding-left: var(--elt-pad-x);
-  padding-right: var(--elt-pad-x);
-  background-color: #25273c;
-  height: var(--elt-height);
-  line-height: var(--elt-height);
 }
 .todo-app__tabs {
-  border-radius: var(--elt-border-radius);
+  border-radius: var(--elt-radius);
   flex-basis: 100%;
   text-align: center;
   margin-top: var(--spacing);
@@ -417,7 +412,7 @@ input {
   margin: 0 0.75rem;
 }
 .todo-app__counter {
-  border-radius: 0 0 0 var(--elt-border-radius);
+  border-radius: 0 0 0 var(--elt-radius);
 }
 .todo-app__clear {
   text-align: right;

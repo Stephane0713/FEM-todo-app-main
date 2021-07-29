@@ -3,34 +3,39 @@
 .todo-app {
     --elt-height: 3rem;
     --elt-pad-x: 1rem;
-    --elt-border-radius: 5px;
+    --elt-radius: 5px;
     --spacing: 1rem;
 
-    color: $clr-light;
+    color: $clr-font;
+
+    &__input,
+    &__item,
+    &__tabs,
+    &__clear,
+    &__counter {
+        padding-left: var(--elt-pad-x);
+        padding-right: var(--elt-pad-x);
+        height: var(--elt-height);
+        line-height: var(--elt-height);
+        background-color: $clr-app-bg;
+    }
 
     &__input {
         width: 100%;
-        height: var(--elt-height);
-        padding-left: var(--elt-pad-x);
-        border-radius: var(--elt-border-radius);
+        border-radius: var(--elt-radius);
         border: none;
-        background-color: $clr-dark;
         margin-bottom: var(--spacing);
     }
 
     &__list {
         min-height: calc(var(--elt-height) * 5);
-        border-radius: var(--elt-border-radius) var(--elt-border-radius) 0 0;
+        border-radius: var(--elt-radius) var(--elt-radius) 0 0;
         overflow: hidden;
     }
 
     &__item {
         width: 100%;
-        height: var(--elt-height);
-        line-height: var(--elt-height);
-        padding-left: var(--elt-pad-x);
-        border-bottom: 1px solid rgba($clr-light, 0.5);
-        background-color: $clr-dark;
+        border-bottom: 1px solid rgba($clr-font, 0.5);
     }
 
     &__footer {
@@ -40,16 +45,11 @@
 
         & > * {
             flex-grow: 1;
-            padding-left: var(--elt-pad-x);
-            padding-right: var(--elt-pad-x);
-            background-color: $clr-dark;
-            height: var(--elt-height);
-            line-height: var(--elt-height);
         }
     }
 
     &__tabs {
-        border-radius: var(--elt-border-radius);
+        border-radius: var(--elt-radius);
         flex-basis: 100%;
         text-align: center;
         margin-top: var(--spacing);
@@ -60,7 +60,7 @@
     }
 
     &__counter {
-        border-radius: 0 0 0 var(--elt-border-radius);
+        border-radius: 0 0 0 var(--elt-radius);
     }
 
     &__clear {
