@@ -427,40 +427,33 @@ input {
   display: none;
 }
 .todo-app__label {
-  --size: 21px;
   position: relative;
   display: block;
   cursor: pointer;
   padding-left: 3rem;
 }
 .todo-app__label::before {
+  --size: 1.25rem;
+  --time: 200ms;
   content: "";
   position: absolute;
   top: calc(50% - var(--size) / 2);
   left: 0;
   height: var(--size);
   width: var(--size);
+  border: 2px solid;
+  border-color: grey;
   border-radius: 50%;
-  background: #cbcde6;
+  background-clip: border-box;
+  box-shadow: inset 0 0 0 var(--size) #25273c;
+  background: url(/icon-check.72789738.svg) center/50% no-repeat, linear-gradient(120deg, red, blue) center center/200% 200%;
+  transition: border-color var(--time) ease, box-shadow var(--time) ease;
 }
 .todo-app__label:hover::before, .todo-app__checkbox:checked + .todo-app__label::before {
-  background: url(/icon-check.72789738.svg) center/50% no-repeat, linear-gradient(120deg, red, blue);
+  border-color: transparent;
 }
-.todo-app__label::after {
-  --border: 1px;
-  --af-size: calc(var(--size) - var(--border) * 2);
-  content: "";
-  position: absolute;
-  top: calc(50% - var(--af-size) / 2);
-  left: var(--border);
-  height: var(--af-size);
-  width: var(--af-size);
-  border-radius: 50%;
-  background: #25273c;
-  transition: opacity 200ms ease;
-}
-.todo-app__checkbox:checked + .todo-app__label::after {
-  opacity: 0;
+.todo-app__checkbox:checked + .todo-app__label::before {
+  box-shadow: none;
 }
 
 @media (min-width: 768px) {

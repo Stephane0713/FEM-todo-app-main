@@ -72,13 +72,11 @@
         border-radius: 0 0 var(--elt-border-radius) 0;
     }
 
-    // This is my solution for the checkbox and i'm not satisfied with it. I might changed it later...
     &__checkbox {
         display: none;
     }
 
     &__label {
-        --size: 21px;
         position: relative;
         display: block;
         cursor: pointer;
@@ -86,38 +84,32 @@
     }
 
     &__label::before {
+        --size: 1.25rem;
+        --time: 200ms;
         content: "";
         position: absolute;
         top: calc(50% - var(--size) / 2);
         left: 0;
         height: var(--size);
         width: var(--size);
+
+        border: 2px solid;
+        border-color: grey;
         border-radius: 50%;
-        background: $clr-font;
+        background-clip: border-box;
+        box-shadow: inset 0 0 0 var(--size) $clr-app-bg;
+        background: url(../images/icon-check.svg) center/ 50% no-repeat,
+            linear-gradient(120deg, red, blue) center center / 200% 200%;
+        transition: border-color var(--time) ease, box-shadow var(--time) ease;
     }
 
     &__label:hover::before,
     &__checkbox:checked + .todo-app__label::before {
-        background: url(../images/icon-check.svg) center/ 50% no-repeat,
-            linear-gradient(120deg, red, blue);
+        border-color: transparent;
     }
 
-    &__label::after {
-        --border: 1px;
-        --af-size: calc(var(--size) - var(--border) * 2);
-        content: "";
-        position: absolute;
-        top: calc(50% - var(--af-size) / 2);
-        left: var(--border);
-        height: var(--af-size);
-        width: var(--af-size);
-        border-radius: 50%;
-        background: $clr-app-bg;
-        transition: opacity 200ms ease;
-    }
-
-    &__checkbox:checked + .todo-app__label::after {
-        opacity: 0;
+    &__checkbox:checked + .todo-app__label::before {
+        box-shadow: none;
     }
 }
 
