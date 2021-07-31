@@ -7,6 +7,8 @@
     --spacing: 1rem;
 
     color: $clr-font;
+    position: relative;
+    padding-bottom: calc(var(--elt-height) + var(--spacing));
 
     &__input,
     &__item,
@@ -17,10 +19,10 @@
         padding-right: var(--elt-pad-x);
         height: var(--elt-height);
         line-height: var(--elt-height);
-        background-color: $clr-app-bg;
     }
 
     &__input {
+        background-color: $clr-app-bg;
         width: 100%;
         border-radius: var(--elt-radius);
         border: none;
@@ -28,6 +30,7 @@
     }
 
     &__list {
+        background-color: $clr-app-bg;
         min-height: calc(var(--elt-height) * 5);
         border-radius: var(--elt-radius) var(--elt-radius) 0 0;
         overflow: hidden;
@@ -39,20 +42,21 @@
     }
 
     &__footer {
+        font-size: 0.8rem;
+        background: $clr-app-bg;
         display: flex;
-        flex-wrap: wrap;
         justify-content: space-between;
-
-        & > * {
-            flex-grow: 1;
-        }
+        border-radius: 0 0 var(--elt-radius) var(--elt-radius);
     }
 
     &__tabs {
+        position: absolute;
+        background-color: $clr-app-bg;
         border-radius: var(--elt-radius);
-        flex-basis: 100%;
+        top: calc(100% - var(--elt-height));
+        left: var(--elt-pad-x);
+        right: var(--elt-pad-x);
         text-align: center;
-        margin-top: var(--spacing);
     }
 
     &__tab {
@@ -66,5 +70,64 @@
     &__clear {
         text-align: right;
         border-radius: 0 0 var(--elt-border-radius) 0;
+    }
+
+    // This is my solution for the checkbox and i'm not satisfied with it. I might changed it later...
+    &__checkbox {
+        display: none;
+    }
+
+    &__label {
+        --size: 21px;
+        position: relative;
+        display: block;
+        cursor: pointer;
+        padding-left: 3rem;
+    }
+
+    &__label::before {
+        content: "";
+        position: absolute;
+        top: calc(50% - var(--size) / 2);
+        left: 0;
+        height: var(--size);
+        width: var(--size);
+        border-radius: 50%;
+        background: $clr-font;
+    }
+
+    &__label:hover::before,
+    &__checkbox:checked + .todo-app__label::before {
+        background: url(../images/icon-check.svg) center/ 50% no-repeat,
+            linear-gradient(120deg, red, blue);
+    }
+
+    &__label::after {
+        --border: 1px;
+        --af-size: calc(var(--size) - var(--border) * 2);
+        content: "";
+        position: absolute;
+        top: calc(50% - var(--af-size) / 2);
+        left: var(--border);
+        height: var(--af-size);
+        width: var(--af-size);
+        border-radius: 50%;
+        background: $clr-app-bg;
+        transition: opacity 200ms ease;
+    }
+
+    &__checkbox:checked + .todo-app__label::after {
+        opacity: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .todo-app {
+        padding-bottom: 0;
+
+        &__tabs {
+            position: static;
+            background-color: transparent;
+        }
     }
 }

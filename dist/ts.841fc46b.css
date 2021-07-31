@@ -371,21 +371,24 @@ input {
   --elt-radius: 5px;
   --spacing: 1rem;
   color: #cbcde6;
+  position: relative;
+  padding-bottom: calc(var(--elt-height) + var(--spacing));
 }
 .todo-app__input, .todo-app__item, .todo-app__tabs, .todo-app__clear, .todo-app__counter {
   padding-left: var(--elt-pad-x);
   padding-right: var(--elt-pad-x);
   height: var(--elt-height);
   line-height: var(--elt-height);
-  background-color: #25273c;
 }
 .todo-app__input {
+  background-color: #25273c;
   width: 100%;
   border-radius: var(--elt-radius);
   border: none;
   margin-bottom: var(--spacing);
 }
 .todo-app__list {
+  background-color: #25273c;
   min-height: calc(var(--elt-height) * 5);
   border-radius: var(--elt-radius) var(--elt-radius) 0 0;
   overflow: hidden;
@@ -395,18 +398,20 @@ input {
   border-bottom: 1px solid rgba(203, 205, 230, 0.5);
 }
 .todo-app__footer {
+  font-size: 0.8rem;
+  background: #25273c;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-}
-.todo-app__footer > * {
-  flex-grow: 1;
+  border-radius: 0 0 var(--elt-radius) var(--elt-radius);
 }
 .todo-app__tabs {
+  position: absolute;
+  background-color: #25273c;
   border-radius: var(--elt-radius);
-  flex-basis: 100%;
+  top: calc(100% - var(--elt-height));
+  left: var(--elt-pad-x);
+  right: var(--elt-pad-x);
   text-align: center;
-  margin-top: var(--spacing);
 }
 .todo-app__tab {
   margin: 0 0.75rem;
@@ -417,6 +422,55 @@ input {
 .todo-app__clear {
   text-align: right;
   border-radius: 0 0 var(--elt-border-radius) 0;
+}
+.todo-app__checkbox {
+  display: none;
+}
+.todo-app__label {
+  --size: 21px;
+  position: relative;
+  display: block;
+  cursor: pointer;
+  padding-left: 3rem;
+}
+.todo-app__label::before {
+  content: "";
+  position: absolute;
+  top: calc(50% - var(--size) / 2);
+  left: 0;
+  height: var(--size);
+  width: var(--size);
+  border-radius: 50%;
+  background: #cbcde6;
+}
+.todo-app__label:hover::before, .todo-app__checkbox:checked + .todo-app__label::before {
+  background: url(/icon-check.72789738.svg) center/50% no-repeat, linear-gradient(120deg, red, blue);
+}
+.todo-app__label::after {
+  --border: 1px;
+  --af-size: calc(var(--size) - var(--border) * 2);
+  content: "";
+  position: absolute;
+  top: calc(50% - var(--af-size) / 2);
+  left: var(--border);
+  height: var(--af-size);
+  width: var(--af-size);
+  border-radius: 50%;
+  background: #25273c;
+  transition: opacity 200ms ease;
+}
+.todo-app__checkbox:checked + .todo-app__label::after {
+  opacity: 0;
+}
+
+@media (min-width: 768px) {
+  .todo-app {
+    padding-bottom: 0;
+  }
+  .todo-app__tabs {
+    position: static;
+    background-color: transparent;
+  }
 }
 
 /*# sourceMappingURL=/ts.841fc46b.css.map */
