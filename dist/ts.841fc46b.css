@@ -365,11 +365,21 @@ input {
   color: unset;
 }
 
+button {
+  cursor: pointer;
+  padding: unset;
+  background-color: unset;
+  border: unset;
+  border-radius: unset;
+  color: unset;
+}
+
 .todo-app {
   --elt-height: 3rem;
   --elt-pad-x: 1rem;
   --elt-radius: 5px;
   --spacing: 1rem;
+  --time: 200ms;
   color: #cbcde6;
   position: relative;
   padding-bottom: calc(var(--elt-height) + var(--spacing));
@@ -394,6 +404,8 @@ input {
   overflow: hidden;
 }
 .todo-app__item {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   border-bottom: 1px solid rgba(203, 205, 230, 0.5);
 }
@@ -426,23 +438,33 @@ input {
 .todo-app__checkbox {
   display: none;
 }
+.todo-app__close {
+  padding: 0.5rem;
+  background: url(/icon-cross.861255e5.svg) center center/contain no-repeat;
+  opacity: 0;
+  transition: opacity var(--time) ease;
+}
+.todo-app__item:hover .todo-app__close {
+  opacity: 1;
+}
 .todo-app__label {
+  --size: 1.25rem;
   position: relative;
-  display: block;
+  flex-grow: 1;
   cursor: pointer;
   padding-left: 3rem;
+  margin-right: 1rem;
+  transition: color var(--time) ease;
 }
 .todo-app__label::before {
-  --size: 1.25rem;
-  --time: 200ms;
   content: "";
   position: absolute;
   top: calc(50% - var(--size) / 2);
   left: 0;
   height: var(--size);
   width: var(--size);
-  border: 2px solid;
-  border-color: grey;
+  border: 1px solid;
+  border-color: #cbcde6;
   border-radius: 50%;
   background-clip: border-box;
   box-shadow: inset 0 0 0 var(--size) #25273c;
@@ -454,6 +476,10 @@ input {
 }
 .todo-app__checkbox:checked + .todo-app__label::before {
   box-shadow: none;
+}
+.todo-app__checkbox:checked + .todo-app__label {
+  color: rgba(203, 205, 230, 0.2);
+  text-decoration: line-through;
 }
 
 @media (min-width: 768px) {
