@@ -427,6 +427,8 @@ button {
 }
 .todo-app__tab {
   margin: 0 0.75rem;
+  transition: color var(--time) ease;
+  cursor: pointer;
 }
 .todo-app__counter {
   border-radius: 0 0 0 var(--elt-radius);
@@ -434,6 +436,11 @@ button {
 .todo-app__clear {
   text-align: right;
   border-radius: 0 0 var(--elt-border-radius) 0;
+  transition: color var(--time) ease;
+  cursor: pointer;
+}
+.todo-app__tab:hover, .todo-app__clear:hover {
+  color: #4d79e0;
 }
 .todo-app__checkbox {
   display: none;

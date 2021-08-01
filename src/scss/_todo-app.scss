@@ -64,6 +64,8 @@
 
     &__tab {
         margin: 0 0.75rem;
+        transition: color var(--time) ease;
+        cursor: pointer;
     }
 
     &__counter {
@@ -73,6 +75,13 @@
     &__clear {
         text-align: right;
         border-radius: 0 0 var(--elt-border-radius) 0;
+        transition: color var(--time) ease;
+        cursor: pointer;
+    }
+
+    &__tab:hover,
+    &__clear:hover {
+        color: $clr-active;
     }
 
     &__checkbox {
