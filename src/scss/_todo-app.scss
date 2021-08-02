@@ -2,7 +2,7 @@
 
 .todo-app {
     --elt-height: 3rem;
-    --elt-pad-x: 1rem;
+    --elt-pad-x: 1.5rem;
     --elt-radius: 5px;
     --spacing: 1rem;
     --time: 200ms;
@@ -80,6 +80,7 @@
     }
 
     &__tab:hover,
+    &__tab.active,
     &__clear:hover {
         color: $clr-active;
     }
@@ -96,7 +97,7 @@
         transition: opacity var(--time) ease;
     }
 
-    &__item:hover .todo-app__close {
+    &__item:hover &__close {
         opacity: 1;
     }
 
@@ -129,15 +130,15 @@
     }
 
     &__label:hover::before,
-    &__checkbox:checked + .todo-app__label::before {
+    &__checkbox:checked + &__label::before {
         border-color: transparent;
     }
 
-    &__checkbox:checked + .todo-app__label::before {
+    &__checkbox:checked + &__label::before {
         box-shadow: none;
     }
 
-    &__checkbox:checked + .todo-app__label {
+    &__checkbox:checked + &__label {
         color: rgba($clr-font, 0.2);
         text-decoration: line-through;
     }

@@ -357,8 +357,8 @@ ul {
   max-width: 768px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 input {
@@ -374,9 +374,13 @@ button {
   color: unset;
 }
 
+.title {
+  margin-top: 0;
+}
+
 .todo-app {
   --elt-height: 3rem;
-  --elt-pad-x: 1rem;
+  --elt-pad-x: 1.5rem;
   --elt-radius: 5px;
   --spacing: 1rem;
   --time: 200ms;
@@ -439,7 +443,7 @@ button {
   transition: color var(--time) ease;
   cursor: pointer;
 }
-.todo-app__tab:hover, .todo-app__clear:hover {
+.todo-app__tab:hover, .todo-app__tab.active, .todo-app__clear:hover {
   color: #4d79e0;
 }
 .todo-app__checkbox {
@@ -496,6 +500,37 @@ button {
   .todo-app__tabs {
     position: static;
     background-color: transparent;
+  }
+}
+body {
+  background-color: #181825;
+  color: #cbcde6;
+}
+
+.header {
+  background: url(/bg-mobile-dark.824fb2b7.jpg);
+}
+.header__content {
+  display: flex;
+  justify-content: space-between;
+}
+.header__title {
+  padding-top: 3rem;
+  padding-bottom: 6rem;
+}
+.header + * {
+  margin-top: -5.5rem;
+}
+
+.footer {
+  padding-top: 3rem;
+  text-align: center;
+  color: rgba(203, 205, 230, 0.4);
+}
+
+@media (min-width: 768px) {
+  .header {
+    background: url(/bg-desktop-dark.0d96dc95.jpg);
   }
 }
 

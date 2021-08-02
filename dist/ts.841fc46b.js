@@ -189,7 +189,59 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./..\\images\\icon-cross.svg":[["icon-cross.861255e5.svg","images/icon-cross.svg"],"images/icon-cross.svg"],"./..\\images\\icon-check.svg":[["icon-check.72789738.svg","images/icon-check.svg"],"images/icon-check.svg"],"_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"ts/index.ts":[function(require,module,exports) {
+},{"./..\\images\\icon-cross.svg":[["icon-cross.861255e5.svg","images/icon-cross.svg"],"images/icon-cross.svg"],"./..\\images\\icon-check.svg":[["icon-check.72789738.svg","images/icon-check.svg"],"images/icon-check.svg"],"./..\\images\\bg-mobile-dark.jpg":[["bg-mobile-dark.824fb2b7.jpg","images/bg-mobile-dark.jpg"],"images/bg-mobile-dark.jpg"],"./..\\images\\bg-desktop-dark.jpg":[["bg-desktop-dark.0d96dc95.jpg","images/bg-desktop-dark.jpg"],"images/bg-desktop-dark.jpg"],"_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"ts/todo-app.ts":[function(require,module,exports) {
+var Task = function () {
+  function Task(text) {
+    this.text = text;
+  }
+
+  return Task;
+}();
+
+var TaskUI = function () {
+  function TaskUI(list) {
+    this.list = list;
+    this.counter = 0;
+    this.list = list;
+  }
+
+  TaskUI.prototype.generateID = function () {
+    this.counter++;
+    return "id-" + this.counter;
+  };
+
+  TaskUI.prototype.add = function (task) {
+    var id = this.generateID();
+    var li = document.createElement('li');
+    li.classList.add('todo-app__item');
+    var input = document.createElement('input');
+    input.type = 'checkbox';
+    input.classList.add('todo-app__checkbox');
+    input.id = id;
+    li.append(input);
+    var label = document.createElement('label');
+    label.classList.add('todo-app__label');
+    label.htmlFor = id;
+    label.textContent = task.text;
+    li.append(label);
+    var btn = document.createElement('button');
+    btn.classList.add('todo-app__close');
+    li.append(btn);
+    list.append(li);
+  };
+
+  return TaskUI;
+}();
+
+var list = document.querySelector(".todo-app__list");
+var task = new Task('this is a test');
+var ui = new TaskUI(list);
+ui.add(task);
+ui.add(task);
+ui.add(task);
+ui.add(task);
+ui.add(task);
+},{}],"ts/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -197,7 +249,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 require("../scss/index.scss");
-},{"../scss/index.scss":"scss/index.scss"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+require("./todo-app.ts");
+},{"../scss/index.scss":"scss/index.scss","./todo-app.ts":"ts/todo-app.ts"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -225,7 +279,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59215" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58972" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

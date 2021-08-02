@@ -1,0 +1,36 @@
+@use "./base/" as *;
+
+body {
+    background-color: $clr-body-bg;
+    color: $clr-font;
+}
+
+.header {
+    background: url(../images/bg-mobile-dark.jpg);
+
+    &__content {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__title {
+        padding-top: 3rem;
+        padding-bottom: 6rem;
+    }
+
+    & + * {
+        margin-top: -5.5rem;
+    }
+}
+
+.footer {
+    padding-top: 3rem;
+    text-align: center;
+    color: rgba($clr-font, 0.4);
+}
+
+@media (min-width: 768px) {
+    .header {
+        background: url(../images/bg-desktop-dark.jpg);
+    }
+}
