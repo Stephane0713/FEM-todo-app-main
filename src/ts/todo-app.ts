@@ -1,19 +1,48 @@
 class Task {
-    constructor(public text: string){}
+    constructor(
+        public text: string,
+        public done: boolean = false
+    ){}
 }
 
-class TaskUI {
-    constructor(private list: HTMLUListElement) {
-        this.list = list;
-    }
-    private counter: number = 0;
+class TaskApp {
+    constructor(
+        private list: HTMLUListElement,
+        public tasks: Task[] = []
+    ) {}
 
+    private counter: number = 0;
     private generateID(): string {
         this.counter++
         return `id-${this.counter}`
     }
 
-    add(task: Task): void {
+    renderAll(): void {
+        this.clear()
+        for(let task of this.tasks) {
+            this.render(task)
+        }
+    }
+
+    renderActive(): void {
+        this.clear()
+        for(let task of this.tasks) {
+            if(!task.done) {
+                this.render(task)
+            }
+        }
+    }
+
+    renderDone(): void {
+        this.clear()
+        for(let task of this.tasks) {
+            if(task.done) {
+                this.render(task)
+            }
+        }
+    }
+
+    render(task: Task): void {
         const id = this.generateID()
         const li = document.createElement('li')
         li.classList.add('todo-app__item')
@@ -36,15 +65,17 @@ class TaskUI {
 
         list.append(li)
     }
+
+    clear(): void {
+        this.list.innerHTML = ""
+    }
 }
 
 const list = document.querySelector(".todo-app__list") as HTMLUListElement
 
-const task = new Task('this is a test')
-const ui = new TaskUI(list)
+const task1 = new Task('this is a test 1')
+const task2 = new Task('this is a test 2', true)
 
-ui.add(task)
-ui.add(task)
-ui.add(task)
-ui.add(task)
-ui.add(task)
+const app = new TaskApp(list, [task1, task2])
+
+app.renderAll()
