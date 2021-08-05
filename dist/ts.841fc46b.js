@@ -190,6 +190,13 @@ var reloadCSS = require('_css_loader');
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
 },{"./..\\images\\icon-cross.svg":[["icon-cross.861255e5.svg","images/icon-cross.svg"],"images/icon-cross.svg"],"./..\\images\\icon-check.svg":[["icon-check.72789738.svg","images/icon-check.svg"],"images/icon-check.svg"],"./..\\images\\bg-mobile-dark.jpg":[["bg-mobile-dark.824fb2b7.jpg","images/bg-mobile-dark.jpg"],"images/bg-mobile-dark.jpg"],"./..\\images\\bg-desktop-dark.jpg":[["bg-desktop-dark.0d96dc95.jpg","images/bg-desktop-dark.jpg"],"images/bg-desktop-dark.jpg"],"_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"ts/todo-app.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TaskApp = exports.Task = void 0;
+
 var Task = function () {
   function Task(text, id, status) {
     if (status === void 0) {
@@ -203,6 +210,8 @@ var Task = function () {
 
   return Task;
 }();
+
+exports.Task = Task;
 
 var TaskApp = function () {
   function TaskApp(list, tasks, tab) {
@@ -244,28 +253,51 @@ var TaskApp = function () {
     var li = document.createElement('li');
     li.classList.add('todo-app__item');
     var div = document.createElement('div');
+    if (task.status === "done") div.classList.add('done');
     div.classList.add('todo-app__task');
+    div.id = task.id;
     div.textContent = task.text;
     li.append(div);
     var btn = document.createElement('button');
     btn.classList.add('todo-app__close');
     li.append(btn);
-    list.append(li);
+    this.list.append(li);
   };
 
   TaskApp.prototype.clear = function () {
     this.list.innerHTML = "";
   };
 
+  TaskApp.prototype.completeTask = function (task) {
+    task.status = 'done';
+  };
+
+  TaskApp.prototype.activeTask = function (task) {
+    task.status = 'active';
+  };
+
   return TaskApp;
 }();
 
+exports.TaskApp = TaskApp;
+},{}],"ts/app.ts":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var todo_app_1 = require("./todo-app");
+
 var list = document.querySelector(".todo-app__list");
-var task1 = new Task('this is a test 1', 0);
-var task2 = new Task('this is a test 2', 1, 'done');
-var app = new TaskApp(list, [task1, task2]);
+var task1 = new todo_app_1.Task('this is a test 1', '0');
+var task2 = new todo_app_1.Task('this is a test 2', '1', 'done');
+var app = new todo_app_1.TaskApp(list, [task1, task2]);
 app.show();
-},{}],"ts/index.ts":[function(require,module,exports) {
+list.addEventListener('click', function (e) {
+  console.log(e.target.id);
+});
+},{"./todo-app":"ts/todo-app.ts"}],"ts/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -274,8 +306,8 @@ Object.defineProperty(exports, "__esModule", {
 
 require("../scss/index.scss");
 
-require("./todo-app.ts");
-},{"../scss/index.scss":"scss/index.scss","./todo-app.ts":"ts/todo-app.ts"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+require("./app.ts");
+},{"../scss/index.scss":"scss/index.scss","./app.ts":"ts/app.ts"}],"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

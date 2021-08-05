@@ -1,7 +1,7 @@
 class Task {
     constructor(
         public text: string,
-        readonly id: number,
+        readonly id: string,
         public status: 'active' | 'done' = 'active'
     ){}
 }
@@ -30,9 +30,11 @@ class TaskApp {
     render(task: Task): void {
         const li = document.createElement('li')
         li.classList.add('todo-app__item')
-
+        
         const div = document.createElement('div')
+        if(task.status === "done") div.classList.add('done')
         div.classList.add('todo-app__task')
+        div.id = task.id
         div.textContent = task.text
         li.append(div)
 
@@ -40,19 +42,20 @@ class TaskApp {
         btn.classList.add('todo-app__close')
         li.append(btn)
 
-        list.append(li)
+        this.list.append(li)
     }
 
     clear(): void {
         this.list.innerHTML = ""
     }
+
+    completeTask(task: Task): void {
+        task.status = 'done'
+    }
+
+    activeTask(task: Task): void {
+        task.status = 'active'
+    }
 }
 
-const list = document.querySelector(".todo-app__list") as HTMLUListElement
-
-const task1 = new Task('this is a test 1', 0)
-const task2 = new Task('this is a test 2', 1, 'done')
-
-const app = new TaskApp(list, [task1, task2])
-
-app.show()
+export {Task, TaskApp}
