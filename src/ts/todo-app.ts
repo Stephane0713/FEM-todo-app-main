@@ -1,14 +1,15 @@
 class Task {
     constructor(
         public text: string,
-        public done: boolean = false
+        public status: 'active' | 'done' = 'active'
     ){}
 }
 
 class TaskApp {
     constructor(
         private list: HTMLUListElement,
-        public tasks: Task[] = []
+        public tasks: Task[] = [],
+        public tab: 'all' | 'active' | 'done' = 'all'
     ) {}
 
     private counter: number = 0;
@@ -17,28 +18,17 @@ class TaskApp {
         return `id-${this.counter}`
     }
 
-    renderAll(): void {
-        this.clear()
-        for(let task of this.tasks) {
+    add(task: Task): void {
+        this.tasks.push(task)
+    }
+
+    show(): void {
+        let arr = this.tasks
+        if(this.tab !== 'all') {
+            arr = this.tasks.filter(task => task.status === this.tab)
+        }
+        for(let task of arr) {
             this.render(task)
-        }
-    }
-
-    renderActive(): void {
-        this.clear()
-        for(let task of this.tasks) {
-            if(!task.done) {
-                this.render(task)
-            }
-        }
-    }
-
-    renderDone(): void {
-        this.clear()
-        for(let task of this.tasks) {
-            if(task.done) {
-                this.render(task)
-            }
         }
     }
 
@@ -74,8 +64,8 @@ class TaskApp {
 const list = document.querySelector(".todo-app__list") as HTMLUListElement
 
 const task1 = new Task('this is a test 1')
-const task2 = new Task('this is a test 2', true)
+const task2 = new Task('this is a test 2', 'done')
 
 const app = new TaskApp(list, [task1, task2])
 
-app.renderAll()
+app.show()

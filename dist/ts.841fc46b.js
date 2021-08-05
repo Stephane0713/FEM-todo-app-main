@@ -191,26 +191,31 @@ module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
 },{"./..\\images\\icon-cross.svg":[["icon-cross.861255e5.svg","images/icon-cross.svg"],"images/icon-cross.svg"],"./..\\images\\icon-check.svg":[["icon-check.72789738.svg","images/icon-check.svg"],"images/icon-check.svg"],"./..\\images\\bg-mobile-dark.jpg":[["bg-mobile-dark.824fb2b7.jpg","images/bg-mobile-dark.jpg"],"images/bg-mobile-dark.jpg"],"./..\\images\\bg-desktop-dark.jpg":[["bg-desktop-dark.0d96dc95.jpg","images/bg-desktop-dark.jpg"],"images/bg-desktop-dark.jpg"],"_css_loader":"../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"ts/todo-app.ts":[function(require,module,exports) {
 var Task = function () {
-  function Task(text, done) {
-    if (done === void 0) {
-      done = false;
+  function Task(text, status) {
+    if (status === void 0) {
+      status = 'active';
     }
 
     this.text = text;
-    this.done = done;
+    this.status = status;
   }
 
   return Task;
 }();
 
 var TaskApp = function () {
-  function TaskApp(list, tasks) {
+  function TaskApp(list, tasks, tab) {
     if (tasks === void 0) {
       tasks = [];
     }
 
+    if (tab === void 0) {
+      tab = 'all';
+    }
+
     this.list = list;
     this.tasks = tasks;
+    this.tab = tab;
     this.counter = 0;
   }
 
@@ -219,36 +224,24 @@ var TaskApp = function () {
     return "id-" + this.counter;
   };
 
-  TaskApp.prototype.renderAll = function () {
-    this.clear();
+  TaskApp.prototype.add = function (task) {
+    this.tasks.push(task);
+  };
 
-    for (var _i = 0, _a = this.tasks; _i < _a.length; _i++) {
-      var task = _a[_i];
+  TaskApp.prototype.show = function () {
+    var _this = this;
+
+    var arr = this.tasks;
+
+    if (this.tab !== 'all') {
+      arr = this.tasks.filter(function (task) {
+        return task.status === _this.tab;
+      });
+    }
+
+    for (var _i = 0, arr_1 = arr; _i < arr_1.length; _i++) {
+      var task = arr_1[_i];
       this.render(task);
-    }
-  };
-
-  TaskApp.prototype.renderActive = function () {
-    this.clear();
-
-    for (var _i = 0, _a = this.tasks; _i < _a.length; _i++) {
-      var task = _a[_i];
-
-      if (!task.done) {
-        this.render(task);
-      }
-    }
-  };
-
-  TaskApp.prototype.renderDone = function () {
-    this.clear();
-
-    for (var _i = 0, _a = this.tasks; _i < _a.length; _i++) {
-      var task = _a[_i];
-
-      if (task.done) {
-        this.render(task);
-      }
     }
   };
 
@@ -281,9 +274,9 @@ var TaskApp = function () {
 
 var list = document.querySelector(".todo-app__list");
 var task1 = new Task('this is a test 1');
-var task2 = new Task('this is a test 2', true);
+var task2 = new Task('this is a test 2', 'done');
 var app = new TaskApp(list, [task1, task2]);
-app.renderAll();
+app.show();
 },{}],"ts/index.ts":[function(require,module,exports) {
 "use strict";
 
@@ -322,7 +315,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52761" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49882" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
