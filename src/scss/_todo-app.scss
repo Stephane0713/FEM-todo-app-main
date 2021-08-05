@@ -85,10 +85,6 @@
         color: $clr-active;
     }
 
-    &__checkbox {
-        display: none;
-    }
-
     &__close {
         padding: 0.5rem;
         background: url(../images/icon-cross.svg) center center / contain
@@ -101,7 +97,7 @@
         opacity: 1;
     }
 
-    &__label {
+    &__task {
         --size: 1.25rem;
         position: relative;
         flex-grow: 1;
@@ -111,7 +107,7 @@
         transition: color var(--time) ease;
     }
 
-    &__label::before {
+    &__task::before {
         content: "";
         position: absolute;
         top: calc(50% - var(--size) / 2);
@@ -129,16 +125,16 @@
         transition: border-color var(--time) ease, box-shadow var(--time) ease;
     }
 
-    &__label:hover::before,
-    &__checkbox:checked + &__label::before {
+    &__task:hover::before,
+    &__task.done::before {
         border-color: transparent;
     }
 
-    &__checkbox:checked + &__label::before {
+    &__task.done::before {
         box-shadow: none;
     }
 
-    &__checkbox:checked + &__label {
+    &__task.done {
         color: rgba($clr-font, 0.2);
         text-decoration: line-through;
     }

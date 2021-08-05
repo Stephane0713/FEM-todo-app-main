@@ -446,9 +446,6 @@ button {
 .todo-app__tab:hover, .todo-app__tab.active, .todo-app__clear:hover {
   color: #4d79e0;
 }
-.todo-app__checkbox {
-  display: none;
-}
 .todo-app__close {
   padding: 0.5rem;
   background: url(/icon-cross.861255e5.svg) center center/contain no-repeat;
@@ -458,7 +455,7 @@ button {
 .todo-app__item:hover .todo-app__close {
   opacity: 1;
 }
-.todo-app__label {
+.todo-app__task {
   --size: 1.25rem;
   position: relative;
   flex-grow: 1;
@@ -467,7 +464,7 @@ button {
   margin-right: 1rem;
   transition: color var(--time) ease;
 }
-.todo-app__label::before {
+.todo-app__task::before {
   content: "";
   position: absolute;
   top: calc(50% - var(--size) / 2);
@@ -482,13 +479,13 @@ button {
   background: url(/icon-check.72789738.svg) center/50% no-repeat, linear-gradient(120deg, red, blue) center center/200% 200%;
   transition: border-color var(--time) ease, box-shadow var(--time) ease;
 }
-.todo-app__label:hover::before, .todo-app__checkbox:checked + .todo-app__label::before {
+.todo-app__task:hover::before, .todo-app__task.done::before {
   border-color: transparent;
 }
-.todo-app__checkbox:checked + .todo-app__label::before {
+.todo-app__task.done::before {
   box-shadow: none;
 }
-.todo-app__checkbox:checked + .todo-app__label {
+.todo-app__task.done {
   color: rgba(203, 205, 230, 0.2);
   text-decoration: line-through;
 }
