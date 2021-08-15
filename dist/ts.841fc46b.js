@@ -198,15 +198,18 @@ Object.defineProperty(exports, "__esModule", {
 exports.TaskApp = exports.Task = void 0;
 
 var Task = function () {
-  function Task(text, id, status) {
-    if (status === void 0) {
-      status = 'active';
+  function Task(text, state) {
+    if (state === void 0) {
+      state = "active";
     }
 
     this.text = text;
-    this.id = id;
-    this.status = status;
+    this.state = state;
   }
+
+  Task.prototype.toggleState = function () {
+    this.state = this.state === "active" ? "done" : "active";
+  };
 
   return Task;
 }();
@@ -214,66 +217,60 @@ var Task = function () {
 exports.Task = Task;
 
 var TaskApp = function () {
-  function TaskApp(list, tasks, tab) {
+  function TaskApp(list, tasks, state) {
     if (tasks === void 0) {
       tasks = [];
     }
 
-    if (tab === void 0) {
-      tab = 'all';
+    if (state === void 0) {
+      state = "all";
     }
 
     this.list = list;
     this.tasks = tasks;
-    this.tab = tab;
+    this.state = state;
   }
 
   TaskApp.prototype.add = function (task) {
     this.tasks.push(task);
   };
 
-  TaskApp.prototype.show = function () {
-    var _this = this;
-
-    var arr = this.tasks;
-
-    if (this.tab !== 'all') {
-      arr = this.tasks.filter(function (task) {
-        return task.status === _this.tab;
-      });
-    }
-
-    for (var _i = 0, arr_1 = arr; _i < arr_1.length; _i++) {
-      var task = arr_1[_i];
-      this.render(task);
-    }
+  TaskApp.prototype.removeTask = function (taskIndex) {
+    this.tasks.splice(taskIndex, 1);
   };
 
   TaskApp.prototype.render = function (task) {
-    var li = document.createElement('li');
-    li.classList.add('todo-app__item');
-    var div = document.createElement('div');
-    if (task.status === "done") div.classList.add('done');
-    div.classList.add('todo-app__task');
-    div.id = task.id;
+    var taskIndex = this.tasks.indexOf(task).toString();
+    var li = document.createElement("li");
+    li.classList.add("todo-app__item");
+    li.dataset.index = taskIndex;
+    var div = document.createElement("div");
+    if (task.state === "done") div.classList.add("done");
+    div.classList.add("todo-app__task");
     div.textContent = task.text;
     li.append(div);
-    var btn = document.createElement('button');
-    btn.classList.add('todo-app__close');
+    var btn = document.createElement("button");
+    btn.classList.add("todo-app__close");
     li.append(btn);
     this.list.append(li);
   };
 
-  TaskApp.prototype.clear = function () {
+  TaskApp.prototype.load = function () {
+    var _this = this;
+
     this.list.innerHTML = "";
-  };
+    var filteredTasks = this.tasks;
 
-  TaskApp.prototype.completeTask = function (task) {
-    task.status = 'done';
-  };
+    if (this.state !== "all") {
+      filteredTasks = this.tasks.filter(function (task) {
+        return task.state === _this.state;
+      });
+    }
 
-  TaskApp.prototype.activeTask = function (task) {
-    task.status = 'active';
+    for (var _i = 0, filteredTasks_1 = filteredTasks; _i < filteredTasks_1.length; _i++) {
+      var task = filteredTasks_1[_i];
+      this.render(task);
+    }
   };
 
   return TaskApp;
@@ -289,13 +286,30 @@ Object.defineProperty(exports, "__esModule", {
 
 var todo_app_1 = require("./todo-app");
 
+var input = document.querySelector(".todo-app__input");
+var tabs = document.querySelector(".todo-app__tabs");
 var list = document.querySelector(".todo-app__list");
-var task1 = new todo_app_1.Task('this is a test 1', '0');
-var task2 = new todo_app_1.Task('this is a test 2', '1', 'done');
+var task1 = new todo_app_1.Task("this is a test 1");
+var task2 = new todo_app_1.Task("this is a test 2", "done");
 var app = new todo_app_1.TaskApp(list, [task1, task2]);
-app.show();
-list.addEventListener('click', function (e) {
-  console.log(e.target.id);
+app.load();
+list.addEventListener("click", function (e) {
+  var task = e.target.parentElement;
+
+  if (task.dataset.index) {
+    var index = parseInt(task.dataset.index);
+    app.tasks[index].toggleState();
+    app.load();
+  }
+});
+tabs.addEventListener("click", function (e) {
+  var tab = e.target;
+
+  if (tab.id) {
+    var id = tab.id;
+    app.state = id;
+    app.load();
+  }
 });
 },{"./todo-app":"ts/todo-app.ts"}],"ts/index.ts":[function(require,module,exports) {
 "use strict";
@@ -335,7 +349,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57882" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58984" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
