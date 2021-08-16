@@ -1,3 +1,5 @@
+type State = "all" | "active" | "done";
+
 class Task {
     constructor(
         public text: string,
@@ -12,8 +14,9 @@ class Task {
 class TaskApp {
     constructor(
         private list: HTMLUListElement,
+        private counter: HTMLElement,
         public tasks: Task[] = [],
-        public state: "all" | "active" | "done" = "all"
+        public state: State = "all"
     ) {}
 
     add(task: Task): void {
@@ -22,6 +25,14 @@ class TaskApp {
 
     removeTask(taskIndex): void {
         this.tasks.splice(taskIndex, 1);
+    }
+
+    changeState(state: State): void {
+        this.state = state;
+    }
+
+    clearCompleted(): void {
+        this.tasks = this.tasks.filter((task) => task.state === "active");
     }
 
     render(task: Task): void {
@@ -54,7 +65,9 @@ class TaskApp {
         for (let task of filteredTasks) {
             this.render(task);
         }
+        const left = filteredTasks.length.toString();
+        this.counter.textContent = `${left} item(s) left`;
     }
 }
 
-export { Task, TaskApp };
+export { State, Task, TaskApp };

@@ -217,7 +217,7 @@ var Task = function () {
 exports.Task = Task;
 
 var TaskApp = function () {
-  function TaskApp(list, tasks, state) {
+  function TaskApp(list, counter, tasks, state) {
     if (tasks === void 0) {
       tasks = [];
     }
@@ -227,6 +227,7 @@ var TaskApp = function () {
     }
 
     this.list = list;
+    this.counter = counter;
     this.tasks = tasks;
     this.state = state;
   }
@@ -237,6 +238,16 @@ var TaskApp = function () {
 
   TaskApp.prototype.removeTask = function (taskIndex) {
     this.tasks.splice(taskIndex, 1);
+  };
+
+  TaskApp.prototype.changeState = function (state) {
+    this.state = state;
+  };
+
+  TaskApp.prototype.clearCompleted = function () {
+    this.tasks = this.tasks.filter(function (task) {
+      return task.state === "active";
+    });
   };
 
   TaskApp.prototype.render = function (task) {
@@ -271,6 +282,9 @@ var TaskApp = function () {
       var task = filteredTasks_1[_i];
       this.render(task);
     }
+
+    var left = filteredTasks.length.toString();
+    this.counter.textContent = left + " item(s) left";
   };
 
   return TaskApp;
@@ -286,19 +300,26 @@ Object.defineProperty(exports, "__esModule", {
 
 var todo_app_1 = require("./todo-app");
 
-var input = document.querySelector(".todo-app__input");
+var form = document.querySelector(".todo-app__form");
 var tabs = document.querySelector(".todo-app__tabs");
 var list = document.querySelector(".todo-app__list");
-var task1 = new todo_app_1.Task("this is a test 1");
-var task2 = new todo_app_1.Task("this is a test 2", "done");
-var app = new todo_app_1.TaskApp(list, [task1, task2]);
+var taskCounter = document.querySelector(".todo-app__counter");
+var clear = document.querySelector(".todo-app__clear");
+var app = new todo_app_1.TaskApp(list, taskCounter);
 app.load();
 list.addEventListener("click", function (e) {
-  var task = e.target.parentElement;
+  var target = e.target;
+  var task = target.parentElement;
 
   if (task.dataset.index) {
     var index = parseInt(task.dataset.index);
-    app.tasks[index].toggleState();
+
+    if (target.classList.contains("todo-app__close")) {
+      app.removeTask(index);
+    } else {
+      app.tasks[index].toggleState();
+    }
+
     app.load();
   }
 });
@@ -306,10 +327,23 @@ tabs.addEventListener("click", function (e) {
   var tab = e.target;
 
   if (tab.id) {
+    tabs.querySelector(".active").classList.remove("active");
     var id = tab.id;
-    app.state = id;
+    app.changeState(id);
+    tab.classList.add("active");
     app.load();
   }
+});
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  var input = form.querySelector("input");
+  var task = new todo_app_1.Task(input.value);
+  app.add(task);
+  app.load();
+});
+clear.addEventListener("click", function () {
+  app.clearCompleted();
+  app.load();
 });
 },{"./todo-app":"ts/todo-app.ts"}],"ts/index.ts":[function(require,module,exports) {
 "use strict";
@@ -349,7 +383,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58984" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50296" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

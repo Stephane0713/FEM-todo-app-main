@@ -1,20 +1,25 @@
-import { Task, TaskApp } from "./todo-app";
+import { State, Task, TaskApp } from "./todo-app";
 
-const input = document.querySelector(".todo-app__input") as HTMLInputElement;
+const form = document.querySelector(".todo-app__form") as HTMLFormElement;
 const tabs = document.querySelector(".todo-app__tabs") as HTMLElement;
 const list = document.querySelector(".todo-app__list") as HTMLUListElement;
+const taskCounter = document.querySelector(".todo-app__counter") as HTMLElement;
+const clear = document.querySelector(".todo-app__clear") as HTMLElement;
 
-const task1 = new Task("this is a test 1");
-const task2 = new Task("this is a test 2", "done");
-const app = new TaskApp(list, [task1, task2]);
+const app = new TaskApp(list, taskCounter);
 app.load();
 
 list.addEventListener("click", (e: Event) => {
-    const task = (e.target as HTMLDivElement).parentElement;
+    const target = e.target as HTMLDivElement;
+    const task = target.parentElement;
 
     if (task.dataset.index) {
         const index: number = parseInt(task.dataset.index);
-        app.tasks[index].toggleState();
+        if (target.classList.contains("todo-app__close")) {
+            app.removeTask(index);
+        } else {
+            app.tasks[index].toggleState();
+        }
         app.load();
     }
 });
@@ -23,8 +28,24 @@ tabs.addEventListener("click", (e: Event) => {
     const tab = e.target as HTMLElement;
 
     if (tab.id) {
-        const id = tab.id as "all" | "active" | "done";
-        app.state = id;
+        tabs.querySelector(".active").classList.remove("active");
+
+        const id = tab.id as State;
+        app.changeState(id);
+        tab.classList.add("active");
         app.load();
     }
+});
+
+form.addEventListener("submit", (e: Event) => {
+    e.preventDefault();
+    const input = form.querySelector("input");
+    const task = new Task(input.value);
+    app.add(task);
+    app.load();
+});
+
+clear.addEventListener("click", () => {
+    app.clearCompleted();
+    app.load();
 });

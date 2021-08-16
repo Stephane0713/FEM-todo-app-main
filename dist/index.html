@@ -28,12 +28,14 @@
             </div>
         </header>
         <div class="todo-app container">
-            <input type="text" class="todo-app__input" placeholder="Create a new todo...">
+            <form class="todo-app__form">
+                <input type="text" class="todo-app__input" placeholder="Create a new todo...">
+            </form>
             <ul class="todo-app__list"></ul>
             <div class="todo-app__footer">
                 <div class="todo-app__counter">5 Items left</div>
                 <div class="todo-app__tabs">
-                    <span class="todo-app__tab" id="all">All</span>
+                    <span class="todo-app__tab active" id="all">All</span>
                     <span class="todo-app__tab" id="active">Active</span>
                     <span class="todo-app__tab" id="done">Completed</span>
                 </div>
