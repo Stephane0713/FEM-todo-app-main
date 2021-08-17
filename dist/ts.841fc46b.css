@@ -476,7 +476,7 @@ button {
   border-radius: 50%;
   background-clip: border-box;
   box-shadow: inset 0 0 0 var(--size) #25273c;
-  background: url(/icon-check.72789738.svg) center/50% no-repeat, linear-gradient(120deg, red, blue) center center/200% 200%;
+  background: url(/icon-check.72789738.svg) center/50% no-repeat, linear-gradient(120deg, #ff00aa, #4d79e0) center center/200% 200%;
   transition: border-color var(--time) ease, box-shadow var(--time) ease;
 }
 .todo-app__task:hover::before, .todo-app__task.done::before {
@@ -502,6 +502,7 @@ button {
 body {
   background-color: #181825;
   color: #cbcde6;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .header {
